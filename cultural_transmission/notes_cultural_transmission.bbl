@@ -1,0 +1,9 @@
+\ifx\undefined\bysame
+\newcommand{\bysame}{\leavevmode\hbox to\leftmargin{\hrulefill\,\,}}
+\fi
+\begin{thebibliography}{xx}
+
+\harvarditem[Bisin and Verdier]{Bisin and Verdier}{2025}{bisinEconomicModelsCultural2025}
+{\bf Bisin, Alberto and Thierry Verdier}, ``Economic {{Models}} of Cultural {{Transmission}},'' {\it NBER Working Paper}, June 2025, {\it 33928.}
+
+\end{thebibliography}

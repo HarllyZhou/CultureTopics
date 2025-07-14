@@ -1,0 +1,13 @@
+# TeX intermediate files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.nav
+*.snm
+*.idx
+*.ilg
+*.ind
