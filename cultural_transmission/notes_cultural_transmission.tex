@@ -7,6 +7,7 @@
 \usepackage{threeparttable}
 \usepackage{adjustbox}
 \usepackage{booktabs}
+\usepackage{enumitem}
 \usepackage{tikz}
 % \renewcommand{\efloatseparator}{\medskip}
 \usepackage{fancyhdr}
@@ -30,9 +31,8 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{prop}{Proposition}
-\newtheorem{hyp}{Hypothesis}
-\newtheorem{subhyp}{Hypothesis}[hyp]
-\renewcommand{\thesubhyp}{\thehyp\alph{subhyp}}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}[theorem]{Lemma}
 
 \newcommand{\red}[1]{{\color{red} #1}}
 \newcommand{\blue}[1]{{\color{blue} #1}}
@@ -78,7 +78,7 @@ In continuous time, we get the \textit{logistic equation}:
 where $d^i-d^j$ reflects the difference in parental rates. Define $f^i\equiv d^i - d^j$ to be the \textit{relative cultural fitness}.
 
 \subsection{Choice}
-A parent with trait $i$ get payoff $V^{ij}$ if her child acquires trait $j$. Assume that $V^{ii}>V^{ij}$. A rational parent chooses the transmission rate $d^i$, facing a cost of $c(d^i)$ which increases with $d^i$ and is convex. The expected parental payoff is $P^{ii}V^{ii}+P^{ij}V^{ij}$, where $P^{ii}$ and $P^{ij}$ are defined by \eqref{eq:inter_transition_prob}. Note that this can be reduced to $V^{ij}+P^{ii}\Delta V^i$, where $\Delta V^i = V^{ii} - V^{ij}$. The socialization choice problem is reduced to
+A parent with trait $i$ get payoff $V^{ij}$ if her child acquires trait $j$. Assume that $V^{ii}>V^{ij}$. A rational parent chooses the transmission rate $d^i$, facing a cost of $c(d^i)$ which increases with $d^i$ and is convex. The expected parental payoff is $P^{ii}V^{ii}+P^{ij}V^{ij}$, where $P^{ii}$ and $P^{ij}$ are defined by \eqref{eq:inter_transition_prob}. Note that this can be reduced to $V^{ij}+P^{ii}\Delta V^i$, where $\Delta V^i = V^{ii} - V^{ij}$ is defined as the \textit{cultural intolerances} of parent $i$. The socialization choice problem is reduced to
 \begin{align}
     \max_{d^i} \qquad& P^{ii} \Delta V^i - c(d^i) \label{opt:socialization_choice} \\
     \text{s.t.} \qquad & P^{ii} = d^i + (1-d^i) q^i. \nonumber
@@ -89,9 +89,52 @@ Given this socialization choice setting, we can maintain a steady state / a stab
 \begin{align}
     0 < q^i < 1 \text{such that}\ f^i(q^i)=0. \label{eq:eqm_cond}
 \end{align}
+The existence of this stable equilibrium is the consequence of the property that $d^i$ decreases with $q^i$, called \textit{cultural substitution}. It implies that minority parents will socialize their children more than the majority parents.
 
+\section{Economic Models}
+\subsection{Non-separability of Parental Effort and Consumption}
+Let $d^i$ be an outcome of a production function $f(\cdot, \cdot)$. Define $d^i\equiv d\left(f(m^i,\ell^i)\right)$, where $m^i$ is the resource input and $\ell^i$ is the time input. We have the following assumptions for $d(\cdot)$ and $f(\cdot, \cdot)$:
+\begin{assumption}
+    The effort function $d: \mathbb{R}\rightarrow [0,1]$ is an increasing function. It satisfies
+    \begin{align}
+        \lim_{y\rightarrow 0} d(y)=0,\qquad \lim_{y\rightarrow +\infty} d(y)=1.\label{eq:effort_fcn_cond}
+    \end{align}
+    The production function $f: \mathbb{R}^2\rightarrow \mathbb{R}$ is twice continuously differentiable. It satisfies 
+    \begin{align}
+        \frac{\partial f(m^i, \ell^i)}{\partial m^i}>0,& \qquad \frac{\partial f(m^i, \ell^i)}{\partial \ell^i}>0.\label{eq:prod_fcn_increasing} \\
+        \frac{\partial^2 f(m^i, \ell^i)}{\partial \left(m^i\right)^2}<0,& \qquad \frac{\partial^2 f(m^i, \ell^i)}{\partial \left(\ell^i\right)^2}<0.\label{eq:prod_fcn_concave}
+    \end{align}
+    It is homogeneous of degree 1, that is, for any $\alpha>0$, 
+    \begin{align}
+        f(\alpha m^i, \alpha \ell^i) = \alpha f(m^i, \ell^i).\label{eq:prod_fcn_homo1}
+    \end{align}
+\end{assumption}
+Assume that each parent is endowed with resource $R$ and time $L=1$ to allocate between production with wage $w$ and socializing their child. The choice problem is
+\begin{align}
+    \max_{x^i, m^i, \ell^i}& u^i(x^i) + P^{ii} \Delta V^i \label{opt:nonsep_choice}\\
+    \text{s.t.}& x^i + m^i \leq R + w(1-\ell^i)\nonumber \\
+    & d^i = d(f(m^i, \ell^i))\nonumber \\
+    & P^ii = d^i + (1-d^i)q^i \nonumber.
+\end{align}
+Solving this problem, we obtain the rate of transmission of the form
+\begin{align}
+    d^i\equiv d^i(q^i, \Delta V^i, R, w).\label{eq:trans_rate_v1}
+\end{align}
+We have the following comparative statics:
+\begin{enumerate}[label=(\arabic*)]
+    \item $\frac{\partial d^i}{\partial \Delta V^i}>0$: An increase in $\Delta V^i$ brings an increase in the marginal utility of parental effort.
+    \item $\frac{\partial d^i}{\partial q^i}<0$: Culturally minor parents need more effort to overcome the social transmission effect.
+    \item $\frac{\partial d^i}{\partial R}>0$: Income effect from more endowment increases the effort.
+    \item $\frac{\partial d^i}{\partial w}$ undetermined: On one hand, higher wage brings stronger substitution effect; on the other hand, income effect increases parental effort.
+\end{enumerate}
 
+Now consider heterogeneity between cultural groups $i$ and $j$. Note that the relative cultural fitness $d^i-d^j$ is an increasing function of $R^i$ and a decreasing function of $R^j$. If $R^i-R^j$ is not too large, there will exist an interior steady state $q^i$ increasing with $R^i$. 
 
+{\color{blue}
+\small
+    \noindent\textbf{Harlly's note.}\\
+    This logic can be applied to gender problems. Parents discriminating on female tend to get boys. Boys are born with more future value (\textit{e.g.}, more opportunities, higher income and social status, etc.). Then $d^i-d^j$ will increase. This implies a reinforce of transmission of women discrimination.
+}
 
 \setlength\bibsep{0pt}
 \bibliographystyle{aer.bst}
